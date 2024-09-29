@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.production react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false env-cmd -f .env.production react-scripts build",
+    "build": "CI= GENERATE_SOURCEMAP=false env-cmd -f .env.production react-scripts build",
     "start-local": "env-cmd -f .env.local react-scripts start",
     "test": "react-scripts test --env=jsdom --passWithNoTests",
     "eject": "react-scripts eject"
