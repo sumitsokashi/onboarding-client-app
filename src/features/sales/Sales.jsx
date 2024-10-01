@@ -10,7 +10,6 @@ export function Sales() {
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/Sales`).then((response) => {
-      debugger;
       setSales(response.data);
     }).catch((err) => console.log(err));
   }, []);
@@ -18,7 +17,7 @@ export function Sales() {
   return (
     <Grid>
       <Grid.Column>
-      <br></br>
+        <br></br>
         <Button primary onClick={() => history.push(`/add-sale`)}>New sale</Button>
 
         <Table celled>
@@ -46,13 +45,19 @@ export function Sales() {
                   {item.store?.name}
                 </TableCell>
                 <TableCell>
-                  {item.dateSold}
+                  {new Date(item.dateSold).getDate() > 9 ? new Date(item.dateSold).getDate() : "0" + new Date(item.dateSold).getDate()}-
+                  {(new Date(item.dateSold).getMonth() + 1) > 9 ? (new Date(item.dateSold).getMonth() + 1) : "0" + (new Date(item.dateSold).getMonth() + 1)}-
+                  {new Date(item.dateSold).getFullYear()}
                 </TableCell>
                 <TableCell>
-                  <Button color='orange'>Edit</Button>
+                  <Button color='orange' onClick={() => { history.push(`/update-sale/${item.id}`) }}>
+                    <Icon name="edit outline"></Icon>Edit
+                  </Button>
                 </TableCell>
                 <TableCell>
-                  <Button color='red'>Delete</Button>
+                  <Button color='red' onClick={() => { history.push(`/delete-sale/${item.id}`) }}>
+                    <Icon name="trash"></Icon>Delete
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

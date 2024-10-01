@@ -24,7 +24,6 @@ export function UpdateCustomer() {
     }, []);
 
     const handleSubmit = (e, data) => {
-        debugger;
         let name = e.target.elements.Name.value;
         let address = e.target.elements.Address.value;
 

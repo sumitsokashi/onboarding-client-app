@@ -18,7 +18,6 @@ export function AddSale() {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/Customers`).then((response) => {
             let customers = [];
-            debugger;
             response.data?.map((item) => (
                 customers.push({ 'text': item.name, 'value': item.id })
             ));
@@ -29,7 +28,6 @@ export function AddSale() {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/Products`).then((response) => {
             let products = [];
-            debugger;
             response.data?.map((item) => (
                 products.push({ 'text': item.name, 'value': item.id })
             ));
@@ -40,7 +38,6 @@ export function AddSale() {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/Stores`).then((response) => {
             let stores = [];
-            debugger;
             response.data?.map((item) => (
                 stores.push({ 'text': item.name, 'value': item.id })
             ));
@@ -49,17 +46,20 @@ export function AddSale() {
     }, []);
 
     const handleSubmit = (e, data) => {
-        debugger;
-        let name = e.target.elements.Name.value;
-        let price = e.target.elements.Price.value;
+        let dateSold = e.target.elements.DateSold.value;
+        let customerId = e.target.elements.Customer.value;
+        let productId = e.target.elements.Product.value;
+        let storeId = e.target.elements.Store.value;
 
-        axios.post(`${process.env.REACT_APP_API_URL}/Products`, {
-            name: name,
-            price: price
+        axios.post(`${process.env.REACT_APP_API_URL}/Sales`, {
+            DateSold: dateSold,
+            CustomerId: customerId,
+            ProductId: productId,
+            StoreId: storeId
         }).then((response) => {
-            alert('Product added successfully');
-            history.push('/products');
-        }).catch((err) => alert('Error whicle adding new product.'));
+            alert('Sale added successfully');
+            history.push('/sales');
+        }).catch((err) => alert('Error whicle adding new sale.'));
     }
 
     return (
@@ -69,21 +69,39 @@ export function AddSale() {
             open={open}
             trigger={<Button>Show Modal</Button>}
         >
-            <ModalHeader>Create product</ModalHeader>
+            <ModalHeader>Create sale</ModalHeader>
             <ModalContent>
                 <Form onSubmit={handleSubmit}>
                     <FormField>
-                        <label>Name</label>
-                        <input name='Name' placeholder='Name' />
+                        <label>Date sold</label>
+                        <input name='DateSold' type='date' placeholder='Date sold' />
                     </FormField>
+
                     <FormField>
                         <label>Customer</label>
-                        <select name="customer">
+                        <select name="Customer">
                             {customers?.map((item) => (
                                 <option value={item.value}>{item.text}</option>
                             ))}
                         </select>
-                        <input name='Price' placeholder='Price' />
+                    </FormField>
+
+                    <FormField>
+                        <label>Product</label>
+                        <select name="Product">
+                            {products?.map((item) => (
+                                <option value={item.value}>{item.text}</option>
+                            ))}
+                        </select>
+                    </FormField>
+
+                    <FormField>
+                        <label>Store</label>
+                        <select name="Store">
+                            {stores?.map((item) => (
+                                <option value={item.value}>{item.text}</option>
+                            ))}
+                        </select>
                     </FormField>
 
                     <Button color='black' onClick={() => {

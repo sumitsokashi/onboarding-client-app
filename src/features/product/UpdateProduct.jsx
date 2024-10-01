@@ -14,7 +14,6 @@ export function UpdateProduct() {
     const [open, setOpen] = React.useState(true);
     const [state, setState] = useState({});
     const handleChange = (e) => {
-        debugger;
         setState({ [e.target.name]: e.target.value });
     }
 
@@ -25,7 +24,6 @@ export function UpdateProduct() {
     }, []);
 
     const handleSubmit = (e, data) => {
-        debugger;
         let name = e.target.elements.Name.value;
         let price = e.target.elements.Price.value;
 

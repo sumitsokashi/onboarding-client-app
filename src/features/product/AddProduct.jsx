@@ -13,7 +13,6 @@ export function AddProduct() {
     const [open, setOpen] = React.useState(true);
 
     const handleSubmit = (e, data) => {
-        debugger;
         let name = e.target.elements.Name.value;
         let price = e.target.elements.Price.value;
 

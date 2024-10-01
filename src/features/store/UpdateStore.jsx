@@ -9,7 +9,6 @@ import {
 import { useParams, useHistory } from "react-router-dom";
 
 export function UpdateStore() {
-    debugger;
     const history = useHistory();
     const { id } = useParams();
     const [open, setOpen] = React.useState(true);
@@ -25,7 +24,6 @@ export function UpdateStore() {
     }, []);
 
     const handleSubmit = (e, data) => {
-        debugger;
         let name = e.target.elements.Name.value;
         let address = e.target.elements.Address.value;
 

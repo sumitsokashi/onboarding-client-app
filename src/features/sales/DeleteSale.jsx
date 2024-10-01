@@ -22,13 +22,13 @@ export function DeleteSale() {
             open={open}
             trigger={<Button>Show Modal</Button>}
         >
-            <ModalHeader>Delete product</ModalHeader>
+            <ModalHeader>Delete sale</ModalHeader>
             <ModalContent>
                 Are you sure?
             </ModalContent>
             <ModalActions>
                 <Button color='black' onClick={() => {
-                    history.push('/products')
+                    history.push('/sales')
                     setOpen(false);
                 }}>
                     Cancel
@@ -38,10 +38,10 @@ export function DeleteSale() {
                     labelPosition='right'
                     icon='close icon'
                     onClick={() => {
-                        axios.delete(`${process.env.REACT_APP_API_URL}/Products/${id}`).then((response) => {
-                            alert('Product deleted successfully');
-                            history.push('/products');
-                        }).catch((err) => alert('Error whicle deleting product.'));
+                        axios.delete(`${process.env.REACT_APP_API_URL}/Sales/${id}`).then((response) => {
+                            alert('Sale deleted successfully');
+                            history.push('/sales');
+                        }).catch((err) => alert('Error whicle deleting sale.'));
                         setOpen(false);
                     }}
                     Delete
