@@ -14,6 +14,7 @@ export function AddSale() {
     const [stores, setStores] = useState();
     const [products, setProducts] = useState();
     const [customers, setCustomers] = useState();
+    const [formErrors, setFormErrors] = React.useState({});
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/Customers`).then((response) => {
@@ -46,20 +47,52 @@ export function AddSale() {
     }, []);
 
     const handleSubmit = (e, data) => {
-        let dateSold = e.target.elements.DateSold.value;
-        let customerId = e.target.elements.Customer.value;
-        let productId = e.target.elements.Product.value;
-        let storeId = e.target.elements.Store.value;
+        let formValues = {
+            dateSold: e.target.elements.DateSold.value,
+            customer: e.target.elements.Customer.value,
+            product: e.target.elements.Product.value,
+            store: e.target.elements.Store.value
+        };
 
-        axios.post(`${process.env.REACT_APP_API_URL}/Sales`, {
-            DateSold: dateSold,
-            CustomerId: customerId,
-            ProductId: productId,
-            StoreId: storeId
-        }).then((response) => {
-            alert('Sale added successfully');
-            history.push('/sales');
-        }).catch((err) => alert('Error whicle adding new sale.'));
+        let errors = validate(formValues);
+
+        setFormErrors(errors);
+
+        if (Object.keys(errors).length === 0) {
+            axios.post(`${process.env.REACT_APP_API_URL}/Sales`, formValues)
+                .then((response) => {
+                    alert('Sale added successfully');
+                    history.push('/sales');
+                }).catch((err) => alert('Error whicle adding new sale.'));
+        }
+    }
+
+    const validate = (values) => {
+        let errors = {};
+        if (!values.dateSold || values.dateSold === '') {
+            errors.DateSold = "Date sold is required";
+        } else if (!values.dateSold) {
+            delete errors.dateSold;
+        }
+
+        if (!values.customer || values.customer === '') {
+            errors.Customer = "Customer is required";
+        } else if (!values.customer) {
+            delete errors.Customer;
+        }
+
+        if (!values.product || values.product === '') {
+            errors.Product = "Product is required";
+        } else if (!values.product) {
+            delete errors.Product;
+        }
+
+        if (!values.store || values.store === '') {
+            errors.Store = "Store is required";
+        } else if (!values.store) {
+            delete errors.Store;
+        }
+        return errors;
     }
 
     return (
@@ -76,6 +109,11 @@ export function AddSale() {
                         <label>Date sold</label>
                         <input name='DateSold' type='date' placeholder='Date sold' />
                     </FormField>
+                    {formErrors.DateSold && <>
+                        <span className="error">{formErrors.DateSold}</span>
+                        <br></br>
+                        <br></br>
+                    </>}
 
                     <FormField>
                         <label>Customer</label>
@@ -85,6 +123,11 @@ export function AddSale() {
                             ))}
                         </select>
                     </FormField>
+                    {formErrors.Customer && <>
+                        <span className="error">{formErrors.Customer}</span>
+                        <br></br>
+                        <br></br>
+                    </>}
 
                     <FormField>
                         <label>Product</label>
@@ -94,6 +137,11 @@ export function AddSale() {
                             ))}
                         </select>
                     </FormField>
+                    {formErrors.Product && <>
+                        <span className="error">{formErrors.Product}</span>
+                        <br></br>
+                        <br></br>
+                    </>}
 
                     <FormField>
                         <label>Store</label>
@@ -103,6 +151,11 @@ export function AddSale() {
                             ))}
                         </select>
                     </FormField>
+                    {formErrors.Store && <>
+                        <span className="error">{formErrors.Store}</span>
+                        <br></br>
+                        <br></br>
+                    </>}
 
                     <Button color='black' onClick={() => {
                         history.push('/products')

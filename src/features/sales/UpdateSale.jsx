@@ -16,6 +16,7 @@ export function UpdateSale() {
     const [stores, setStores] = useState();
     const [products, setProducts] = useState();
     const [customers, setCustomers] = useState();
+    const [formErrors, setFormErrors] = React.useState({});
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/Customers`).then((response) => {
@@ -68,26 +69,59 @@ export function UpdateSale() {
     }, []);
 
     const handleSubmit = (e, data) => {
-        let dateSold = e.target.elements.DateSold.value;
-        let customerId = e.target.elements.Customer.value;
-        let productId = e.target.elements.Product.value;
-        let storeId = e.target.elements.Store.value;
-
-        axios.put(`${process.env.REACT_APP_API_URL}/Sales`, {
+        let formValues = {
             id: id,
-            DateSold: dateSold,
-            CustomerId: customerId,
-            ProductId: productId,
-            StoreId: storeId
-        }).then((response) => {
-            alert('Sale updated successfully');
-            history.push('/Sales');
-        }).catch((err) => alert('Error whicle updating sale.'));
+            dateSold: e.target.elements.DateSold.value,
+            customer: e.target.elements.Customer.value,
+            product: e.target.elements.Product.value,
+            store: e.target.elements.Store.value
+        };
+
+        let errors = validate(formValues);
+
+        setFormErrors(errors);
+
+        if (Object.keys(errors).length === 0) {
+
+            axios.put(`${process.env.REACT_APP_API_URL}/Sales`, formValues)
+                .then((response) => {
+                    alert('Sale updated successfully');
+                    history.push('/Sales');
+                }).catch((err) => alert('Error while updating sale.'));
+        }
     }
 
     const onChangeDate = e => {
         setState({ ...state, dateSold: e.target.value });
     };
+
+    const validate = (values) => {
+        let errors = {};
+        if (!values.dateSold || values.dateSold === '') {
+            errors.DateSold = "Date sold is required";
+        } else if (!values.dateSold) {
+            delete errors.dateSold;
+        }
+
+        if (!values.customer || values.customer === '') {
+            errors.Customer = "Customer is required";
+        } else if (!values.customer) {
+            delete errors.Customer;
+        }
+
+        if (!values.product || values.product === '') {
+            errors.Product = "Product is required";
+        } else if (!values.product) {
+            delete errors.Product;
+        }
+
+        if (!values.store || values.store === '') {
+            errors.Store = "Store is required";
+        } else if (!values.store) {
+            delete errors.Store;
+        }
+        return errors;
+    }
 
     return (
         <Modal
@@ -103,6 +137,11 @@ export function UpdateSale() {
                         <label>Date sold</label>
                         <input name='DateSold' type='date' placeholder='Date sold' value={state.dateSold} onChange={onChangeDate} />
                     </FormField>
+                    {formErrors.DateSold && <>
+                        <span className="error">{formErrors.DateSold}</span>
+                        <br></br>
+                        <br></br>
+                    </>}
 
                     <FormField>
                         <label>Customer</label>
@@ -112,6 +151,11 @@ export function UpdateSale() {
                             ))}
                         </select>
                     </FormField>
+                    {formErrors.Customer && <>
+                        <span className="error">{formErrors.Customer}</span>
+                        <br></br>
+                        <br></br>
+                    </>}
 
                     <FormField>
                         <label>Product</label>
@@ -121,6 +165,11 @@ export function UpdateSale() {
                             ))}
                         </select>
                     </FormField>
+                    {formErrors.Product && <>
+                        <span className="error">{formErrors.Product}</span>
+                        <br></br>
+                        <br></br>
+                    </>}
 
                     <FormField>
                         <label>Store</label>
@@ -130,6 +179,11 @@ export function UpdateSale() {
                             ))}
                         </select>
                     </FormField>
+                    {formErrors.Store && <>
+                        <span className="error">{formErrors.Store}</span>
+                        <br></br>
+                        <br></br>
+                    </>}
 
                     <Button color='black' onClick={() => {
                         history.push('/sales')

@@ -41,7 +41,7 @@ export function DeleteStore() {
                         axios.delete(`${process.env.REACT_APP_API_URL}/Stores/${id}`).then((response) => {
                             alert('Store deleted successfully');
                             history.push('/stores');
-                        }).catch((err) => alert('Error whicle deleting store.'));
+                        }).catch((err) => alert('Error while deleting store.'));
                         setOpen(false);
                     }}
                     Delete

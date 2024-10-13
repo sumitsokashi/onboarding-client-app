@@ -13,6 +13,8 @@ export function UpdateProduct() {
     const { id } = useParams();
     const [open, setOpen] = React.useState(true);
     const [state, setState] = useState({});
+    const [formErrors, setFormErrors] = React.useState({});
+
     const handleChange = (e) => {
         setState({ [e.target.name]: e.target.value });
     }
@@ -24,17 +26,38 @@ export function UpdateProduct() {
     }, []);
 
     const handleSubmit = (e, data) => {
-        let name = e.target.elements.Name.value;
-        let price = e.target.elements.Price.value;
-
-        axios.put(`${process.env.REACT_APP_API_URL}/Products`, {
+        let formValues = {
             id: id,
-            name: name,
-            price: price
-        }).then((response) => {
-            alert('Product updated successfully');
-            history.push('/products');
-        }).catch((err) => alert('Error whicle adding new product.'));
+            name: e.target.elements.Name.value,
+            price: e.target.elements.Price.value
+        };
+
+        let errors = validate(formValues);
+
+        setFormErrors(errors);
+
+        if (Object.keys(errors).length === 0) {
+            axios.put(`${process.env.REACT_APP_API_URL}/Products`, formValues).then((response) => {
+                alert('Product updated successfully');
+                history.push('/products');
+            }).catch((err) => alert('Error whicle adding new product.'));
+        }
+    }
+
+    const validate = (values) => {
+        let errors = {};
+        if (!values.name || values.name === '') {
+            errors.Name = "Name is required";
+        } else if (!values.name) {
+            delete errors.Name;
+        }
+
+        if (!values.price || values.price === '') {
+            errors.Price = "Price is required";
+        } else if (!values.price) {
+            delete errors.Price;
+        }
+        return errors;
     }
 
     return (
@@ -51,10 +74,21 @@ export function UpdateProduct() {
                         <label>Name</label>
                         <input name='Name' placeholder='Name' value={state.name} onChange={handleChange} />
                     </FormField>
+                    {formErrors.Name && <>
+                        <span className="error">{formErrors.Name}</span>
+                        <br></br>
+                        <br></br>
+                    </>}
+
                     <FormField>
                         <label>Price</label>
                         <input name='Price' placeholder='Price' value={state.price} handleChange={handleChange} />
                     </FormField>
+                    {formErrors.Price && <>
+                        <span className="error">{formErrors.Price}</span>
+                        <br></br>
+                        <br></br>
+                    </>}
 
                     <Button color='black' onClick={() => {
                         history.push('/products')
