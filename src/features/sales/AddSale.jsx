@@ -47,11 +47,12 @@ export function AddSale() {
     }, []);
 
     const handleSubmit = (e, data) => {
+        debugger;
         let formValues = {
             dateSold: e.target.elements.DateSold.value,
-            customer: e.target.elements.Customer.value,
-            product: e.target.elements.Product.value,
-            store: e.target.elements.Store.value
+            customerId: e.target.elements.Customer.value,
+            productId: e.target.elements.Product.value,
+            storeId: e.target.elements.Store.value
         };
 
         let errors = validate(formValues);
@@ -75,21 +76,21 @@ export function AddSale() {
             delete errors.dateSold;
         }
 
-        if (!values.customer || values.customer === '') {
+        if (!values.customerId || values.customerId === '') {
             errors.Customer = "Customer is required";
-        } else if (!values.customer) {
+        } else if (!values.customerId) {
             delete errors.Customer;
         }
 
-        if (!values.product || values.product === '') {
+        if (!values.productId || values.productId === '') {
             errors.Product = "Product is required";
-        } else if (!values.product) {
+        } else if (!values.productId) {
             delete errors.Product;
         }
 
-        if (!values.store || values.store === '') {
+        if (!values.storeId || values.storeId === '') {
             errors.Store = "Store is required";
-        } else if (!values.store) {
+        } else if (!values.storeId) {
             delete errors.Store;
         }
         return errors;
@@ -119,7 +120,7 @@ export function AddSale() {
                         <label>Customer</label>
                         <select name="Customer">
                             {customers?.map((item) => (
-                                <option value={item.value}>{item.text}</option>
+                                <option value={item.value} key={item.value}>{item.text}</option>
                             ))}
                         </select>
                     </FormField>
@@ -133,7 +134,7 @@ export function AddSale() {
                         <label>Product</label>
                         <select name="Product">
                             {products?.map((item) => (
-                                <option value={item.value}>{item.text}</option>
+                                <option value={item.value} key={item.value}>{item.text}</option>
                             ))}
                         </select>
                     </FormField>
@@ -147,7 +148,7 @@ export function AddSale() {
                         <label>Store</label>
                         <select name="Store">
                             {stores?.map((item) => (
-                                <option value={item.value}>{item.text}</option>
+                                <option value={item.value} key={item.value}>{item.text}</option>
                             ))}
                         </select>
                     </FormField>
@@ -158,7 +159,7 @@ export function AddSale() {
                     </>}
 
                     <Button color='black' onClick={() => {
-                        history.push('/products')
+                        history.push('/sales')
                         setOpen(false);
                     }}>
                         Cancel

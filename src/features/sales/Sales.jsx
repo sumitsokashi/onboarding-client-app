@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { Button, Grid, } from 'semantic-ui-react';
-import { TableRow, TableHeaderCell, TableHeader, TableFooter, TableCell, TableBody, MenuItem, Icon, Menu, Table } from 'semantic-ui-react';
+import { TableRow, TableHeaderCell, TableHeader, TableCell, TableBody, Icon, Table } from 'semantic-ui-react';
 import { useHistory } from "react-router-dom";
 
 export function Sales() {
@@ -62,51 +62,7 @@ export function Sales() {
               </TableRow>
             ))}
           </TableBody>
-
-          <TableFooter>
-            <TableRow>
-              <TableHeaderCell colSpan='3'>
-                <Menu floated='right' pagination>
-                  <MenuItem as='a' icon>
-                    <Icon name='chevron left' />
-                  </MenuItem>
-                  <MenuItem as='a'>1</MenuItem>
-                  <MenuItem as='a'>2</MenuItem>
-                  <MenuItem as='a'>3</MenuItem>
-                  <MenuItem as='a'>4</MenuItem>
-                  <MenuItem as='a' icon>
-                    <Icon name='chevron right' />
-                  </MenuItem>
-                </Menu>
-              </TableHeaderCell>
-            </TableRow>
-          </TableFooter>
         </Table>
-
-        {/* <Segment>
-          <Form size="large">
-            <Form.Input
-              fluid
-              icon="user"
-              iconPosition="left"
-              placeholder="Email address"
-            />
-            <Form.Input
-              fluid
-              icon="lock"
-              iconPosition="left"
-              placeholder="Password"
-              type="password"
-            />
-
-            <Button color="blue" fluid size="large">
-              Login
-            </Button>
-          </Form>
-        </Segment>
-        <Message>
-          Not registered yet? <a href="#">Sign Up</a>
-        </Message> */}
       </Grid.Column>
     </Grid>
   )

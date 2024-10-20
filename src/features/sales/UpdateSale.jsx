@@ -72,9 +72,9 @@ export function UpdateSale() {
         let formValues = {
             id: id,
             dateSold: e.target.elements.DateSold.value,
-            customer: e.target.elements.Customer.value,
-            product: e.target.elements.Product.value,
-            store: e.target.elements.Store.value
+            customerId: e.target.elements.Customer.value,
+            productId: e.target.elements.Product.value,
+            storeId: e.target.elements.Store.value
         };
 
         let errors = validate(formValues);
@@ -103,21 +103,21 @@ export function UpdateSale() {
             delete errors.dateSold;
         }
 
-        if (!values.customer || values.customer === '') {
+        if (!values.customerId || values.customerId === '') {
             errors.Customer = "Customer is required";
-        } else if (!values.customer) {
+        } else if (!values.customerId) {
             delete errors.Customer;
         }
 
-        if (!values.product || values.product === '') {
+        if (!values.productId || values.productId === '') {
             errors.Product = "Product is required";
-        } else if (!values.product) {
+        } else if (!values.productId) {
             delete errors.Product;
         }
 
-        if (!values.store || values.store === '') {
+        if (!values.storeId || values.storeId === '') {
             errors.Store = "Store is required";
-        } else if (!values.store) {
+        } else if (!values.storeId) {
             delete errors.Store;
         }
         return errors;
@@ -130,7 +130,7 @@ export function UpdateSale() {
             open={open}
             trigger={<Button>Show Modal</Button>}
         >
-            <ModalHeader>Edit product</ModalHeader>
+            <ModalHeader>Edit sale</ModalHeader>
             <ModalContent>
                 <Form onSubmit={handleSubmit}>
                     <FormField>

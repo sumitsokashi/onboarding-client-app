@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { Button, Grid, } from 'semantic-ui-react';
 import {
-  TableRow, TableHeaderCell, TableHeader, TableFooter,
-  TableCell, TableBody, MenuItem, Icon, Menu, Table
+  TableRow, TableHeaderCell, TableHeader, 
+  TableCell, TableBody, Icon, Table
 } from 'semantic-ui-react';
 import { useHistory } from "react-router-dom";
 
@@ -55,25 +55,6 @@ export function Products() {
               </TableRow>
             ))}
           </TableBody>
-
-          <TableFooter>
-            <TableRow>
-              <TableHeaderCell colSpan='3'>
-                <Menu floated='right' pagination>
-                  <MenuItem as='a' icon>
-                    <Icon name='chevron left' />
-                  </MenuItem>
-                  <MenuItem as='a'>1</MenuItem>
-                  <MenuItem as='a'>2</MenuItem>
-                  <MenuItem as='a'>3</MenuItem>
-                  <MenuItem as='a'>4</MenuItem>
-                  <MenuItem as='a' icon>
-                    <Icon name='chevron right' />
-                  </MenuItem>
-                </Menu>
-              </TableHeaderCell>
-            </TableRow>
-          </TableFooter>
         </Table>
       </Grid.Column>
     </Grid>
