@@ -65,6 +65,7 @@ export function UpdateProduct() {
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
+            closeOnDimmerClick={false}
             trigger={<Button>Show Modal</Button>}
         >
             <ModalHeader>Edit product</ModalHeader>

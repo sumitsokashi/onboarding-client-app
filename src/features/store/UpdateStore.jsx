@@ -65,6 +65,7 @@ export function UpdateStore() {
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
+            closeOnDimmerClick={false}
             trigger={<Button>Show Modal</Button>}
         >
             <ModalHeader>Edit store</ModalHeader>

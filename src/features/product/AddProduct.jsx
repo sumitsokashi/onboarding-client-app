@@ -54,6 +54,7 @@ export function AddProduct() {
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
+            closeOnDimmerClick={false}
             trigger={<Button>Show Modal</Button>}
         >
             <ModalHeader>Create product</ModalHeader>
