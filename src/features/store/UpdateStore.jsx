@@ -83,7 +83,7 @@ export function UpdateStore() {
 
                     <FormField>
                         <label>Address</label>
-                        <input name='Address' placeholder='Address' value={state.address} handleChange={handleChange} />
+                        <input name='Address' placeholder='Address' value={state.address} onChange={handleChange} />
                     </FormField>
                     {formErrors.Name && <>
                         <span className="error">{formErrors.Address}</span>

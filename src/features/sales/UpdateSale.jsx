@@ -146,7 +146,7 @@ export function UpdateSale() {
 
                     <FormField>
                         <label>Customer</label>
-                        <select name="Customer" handleChange={handleChange}>
+                        <select name="Customer" onChange={handleChange}>
                             {customers?.map((item) => (
                                 <option value={item.value} selected={item.value === state.customerId}>{item.text}</option>
                             ))}
@@ -160,7 +160,7 @@ export function UpdateSale() {
 
                     <FormField>
                         <label>Product</label>
-                        <select name="Product" handleChange={handleChange}>
+                        <select name="Product" onChange={handleChange}>
                             {products?.map((item) => (
                                 <option value={item.value} selected={item.value === state.productId}>{item.text}</option>
                             ))}
@@ -174,7 +174,7 @@ export function UpdateSale() {
 
                     <FormField>
                         <label>Store</label>
-                        <select name="Store" handleChange={handleChange}>
+                        <select name="Store" onChange={handleChange}>
                             {stores?.map((item) => (
                                 <option value={item.value} selected={item.value === state.storeId}>{item.text}</option>
                             ))}

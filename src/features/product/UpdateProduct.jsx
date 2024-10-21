@@ -83,7 +83,7 @@ export function UpdateProduct() {
 
                     <FormField>
                         <label>Price</label>
-                        <input name='Price' placeholder='Price' value={state.price} handleChange={handleChange} />
+                        <input name='Price' placeholder='Price' value={state.price} onChange={handleChange} />
                     </FormField>
                     {formErrors.Price && <>
                         <span className="error">{formErrors.Price}</span>
